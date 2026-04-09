@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react'
+import { cn } from '../lib/utils'
 
 interface HeaderProps extends ComponentProps<'header'> {
     /**
@@ -16,35 +17,35 @@ interface HeaderProps extends ComponentProps<'header'> {
 }
 
 function Subheading({ subHeading }: { readonly subHeading?: string }) {
-
-    if(subHeading){
-        return (
-            <p className="text-xl text-gray-500">
-                {subHeading}
-            </p>
-        )
+    if (subHeading) {
+        return <p className="text-xl text-gray-500">{subHeading}</p>
     }
 
     return (
-      <div className='text-center'>
-        <p>
-           5 x Image items <span className="font-bold">❖ Carousel</span>
-        </p>
-        <p>
-            Interactive Components & Variants
-        </p>
-      </div>
+        <div className="text-center">
+            <p>
+                5 x Image items <span className="font-bold">❖ Carousel</span>
+            </p>
+            <p>Interactive Components & Variants</p>
+        </div>
     )
 }
 
-export const Header: React.FC<HeaderProps> = ({
+export const Header = ({
     heading = 'Simple Image Carousel',
     subHeading,
     ...props
-}) => {
+}: HeaderProps) => {
+    const { className, ...rest } = props
 
     return (
-        <header {...props} className="text-center mb-8 flex flex-col gap-6">
+        <header
+            className={cn(
+                'text-center mb-8 flex flex-col gap-6',
+                className
+            )}
+            {...rest}
+        >
             {heading && <h1 className="text-6xl font-bold">{heading}</h1>}
             <Subheading subHeading={subHeading} />
         </header>
