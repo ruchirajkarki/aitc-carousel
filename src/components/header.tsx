@@ -34,9 +34,9 @@ function Subheading({ subHeading }: { readonly subHeading?: string }) {
 export const Header = ({
     heading = 'Simple Image Carousel',
     subHeading,
+    className,
     ...props
 }: HeaderProps) => {
-    const { className, ...rest } = props
 
     return (
         <header
@@ -44,7 +44,7 @@ export const Header = ({
                 'text-center mb-8 flex flex-col gap-6',
                 className
             )}
-            {...rest}
+            {...props}
         >
             {heading && <h1 className="text-6xl font-bold">{heading}</h1>}
             <Subheading subHeading={subHeading} />

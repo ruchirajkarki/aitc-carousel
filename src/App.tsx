@@ -1,6 +1,5 @@
 import { carouselImages } from './assets'
-import { Carousel } from './components/carousel'
-import { Header } from './components/header'
+import { Carousel, Header } from './components'
 
 function App() {
     return (
