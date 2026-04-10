@@ -26,7 +26,10 @@ const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
 
     return (
         <div
-            className={cn('carousel mx-auto relative space-y-4', className)}
+            className={cn(
+                'carousel mx-auto relative overflow-hidden space-y-4',
+                className
+            )}
             {...props}
         >
             <div

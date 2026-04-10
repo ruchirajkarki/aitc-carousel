@@ -15,7 +15,7 @@ export const CarouselControls = () => {
             >
                 <Icon
                     name="arrow"
-                    className="size-(--carousel-arrow-size) opacity-70 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:transition-none"
+                    className="size-(--carousel-arrow-size) opacity-70 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
                     style={{ transitionDuration: 'var(--carousel-duration)' }}
                 />
             </button>
@@ -26,7 +26,7 @@ export const CarouselControls = () => {
                     type="button"
                     aria-label={`Go to slide ${index + 1}`}
                     className={cn(
-                        'size-(--carousel-dot-size) scale-90 rounded-full bg-(--carousel-dot) opacity-60 transition-all duration-900 ease-out hover:opacity-100 motion-reduce:transition-none motion-reduce:transform-none',
+                        'size-(--carousel-dot-size) scale-90 rounded-full bg-(--carousel-dot) opacity-60 transition-all duration-900 ease-out hover:opacity-100 focus-visible:opacity-100 motion-reduce:transition-none motion-reduce:transform-none',
                         image.id === activeImage.id &&
                             'scale-(--carousel-dot-active-scale) opacity-100 bg-(--carousel-dot-active) motion-reduce:scale-100'
                     )}
@@ -42,7 +42,7 @@ export const CarouselControls = () => {
             >
                 <Icon
                     name="arrow"
-                    className="size-(--carousel-arrow-size) rotate-180 opacity-70 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:transition-none"
+                    className="size-(--carousel-arrow-size) rotate-180 opacity-70 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
                     style={{ transitionDuration: 'var(--carousel-duration)' }}
                 />
             </button>
