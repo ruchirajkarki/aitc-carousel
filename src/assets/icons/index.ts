@@ -1,4 +1,4 @@
-import arrow from "./arrow.svg"
+import arrow from './arrow.svg'
 
 export const icons = {
     arrow

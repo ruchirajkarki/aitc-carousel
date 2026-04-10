@@ -1,8 +1,12 @@
 import type { ComponentPropsWithoutRef } from 'react'
+
 import { type IconsKey, icons } from '../assets/icons'
 import { cn } from '../lib/utils'
 
-interface IconProps extends Omit<ComponentPropsWithoutRef<'img'>, 'src' | 'alt'> {
+interface IconProps extends Omit<
+    ComponentPropsWithoutRef<'img'>,
+    'src' | 'alt'
+> {
     name: IconsKey
     alt?: string
 }

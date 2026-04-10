@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react'
+
 import { cn } from '../lib/utils'
 
 interface HeaderProps extends ComponentProps<'header'> {
@@ -37,13 +38,9 @@ export const Header = ({
     className,
     ...props
 }: HeaderProps) => {
-
     return (
         <header
-            className={cn(
-                'text-center mb-8 flex flex-col gap-6',
-                className
-            )}
+            className={cn('text-center mb-8 flex flex-col gap-6', className)}
             {...props}
         >
             {heading && <h1 className="text-6xl font-bold">{heading}</h1>}

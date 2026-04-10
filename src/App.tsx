@@ -4,8 +4,8 @@ import { Carousel, Header } from './components'
 function App() {
     return (
         <>
-            <Header className='mt-20'/>
-            <Carousel images={carouselImages}/>
+            <Header className="mt-20" />
+            <Carousel images={carouselImages} />
         </>
     )
 }

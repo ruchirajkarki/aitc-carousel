@@ -1,1 +1,1 @@
-export * from "./carousel.type"
+export * from './carousel.type'

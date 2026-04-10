@@ -1,9 +1,9 @@
 import type { CarouselImage } from '../../types'
+import dummyImage2 from './dummy_image2.jpg'
 import dummyImage0 from './dummy_image-0.jpg'
 import dummyImage1 from './dummy_image-1.jpg'
 import dummyImage3 from './dummy_image-3.jpg'
 import dummyImage4 from './dummy_image-4.jpg'
-import dummyImage2 from './dummy_image2.jpg'
 
 export const carouselImages: CarouselImage[] = [
     {
