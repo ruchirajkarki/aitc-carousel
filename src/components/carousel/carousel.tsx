@@ -37,6 +37,12 @@ const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
     const { images, activeIndex, goToPreviousSlide, goToNextSlide } =
         useCarousel()
 
+    // auto switch slides every 5 seconds
+    useEffect(() => {
+        const interval = setInterval(goToNextSlide, 5000)
+        return () => clearInterval(interval)
+    }, [goToNextSlide])
+
     // Global Keyboard keys for Navigation, left and right
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -120,16 +126,16 @@ const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
 
         switch (distance) {
             case 1:
-                translateX = 'calc(-50% + 150px)'
+                translateX = 'calc(-50% + var(--carousel-slide-offset-1))'
                 break
             case 2:
-                translateX = 'calc(-50% + 300px)'
+                translateX = 'calc(-50% + var(--carousel-slide-offset-2))'
                 break
             case -1:
-                translateX = 'calc(-50% - 150px)'
+                translateX = 'calc(-50% - var(--carousel-slide-offset-1))'
                 break
             case -2:
-                translateX = 'calc(-50% - 300px)'
+                translateX = 'calc(-50% - var(--carousel-slide-offset-2))'
                 break
         }
 
@@ -162,7 +168,10 @@ const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
                             <img
                                 src={image.url}
                                 alt={image.alt ?? 'Carousel image'}
-                                className="size-full object-cover rounded-(--carousel-radius)"
+                                className="size-full object-cover"
+                                style={{
+                                    borderRadius: 'var(--carousel-radius)'
+                                }}
                                 draggable={false}
                             />
                         </div>

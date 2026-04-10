@@ -61,6 +61,10 @@ button {
     --carousel-offset-2: 45%; /* Far Position Offset */
     --carousel-hidden-offset: 80%; /* Hidden Position Offset */
 
+    /* slide positioning offsets (responsive) */
+    --carousel-slide-offset-1: 150px; /* Near slide offset */
+    --carousel-slide-offset-2: 300px; /* Far slide offset */
+
     /* controls */
     --carousel-dot-wrapper-p: 8px;
     --carousel-dot-size: 12px;
@@ -84,6 +88,10 @@ button {
         --carousel-card-h: 300px; /* Center Card Height */
         --carousel-radius: 30px; /* Corner Radius */
 
+        /* slide positioning offsets */
+        --carousel-slide-offset-1: 100px; /* Near slide offset */
+        --carousel-slide-offset-2: 200px; /* Far slide offset */
+
         /* controls */
         --carousel-dot-wrapper-p: 6px;
         --carousel-dot-size: 10px;
@@ -99,6 +107,10 @@ button {
         --carousel-card-w: 320px; /* Center Card Width */
         --carousel-card-h: 180px; /* Center Card Height */
         --carousel-radius: 20px; /* Corner Radius */
+
+        /* slide positioning offsets */
+        --carousel-slide-offset-1: 50px; /* Near slide offset */
+        --carousel-slide-offset-2: 100px; /* Far slide offset */
 
         /* controls */
         --carousel-dot-wrapper-p: 4px;
