@@ -1,12 +1,21 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+button {
+    cursor: pointer;
+}
 
 :root {
-    --text: #6b6375;
+    /* Below are modified to reflect figma design at:  */
+    /* https://www.figma.com/design/cRU4R1JpyFW29kClgedf78/Carousel--Community-?node-id=3-99&p=f&t=IUmDpNMT7q3nJ2me-0 */
+    --text: oklch(0 0 0);
+    --accent: oklch(0.6057 0.224 285.06);
+    --bg: oklch(1 0 0);
+    --secondary: oklch(0.683 0 0);
+
+    /* Below are defaults provided by vite */
     --text-h: #08060d;
-    --bg: #fff;
     --border: #e5e4e7;
     --code-bg: #f4f3ec;
-    --accent: #aa3bff;
     --accent-bg: rgba(170, 59, 255, 0.1);
     --accent-border: rgba(170, 59, 255, 0.5);
     --social-bg: rgba(244, 243, 236, 0.5);
@@ -29,5 +38,75 @@
 
     @media (max-width: 1024px) {
         font-size: 16px;
+    }
+}
+
+/*  Carousel tokens ( extracted from figma ) */
+.carousel {
+    /* layout and sizing */
+    --carousel-card-w: 800px; /* Center Card Width */
+    --carousel-card-h: 400px; /* Center Card Height */
+    --carousel-radius: 40px; /* Corner Radius */
+
+    /* visual states */
+    --carousel-scale-0: 1;
+    --carousel-scale-1: 0.9; /* Near Scale */
+    --carousel-scale-2: 0.8; /* Far Scale */
+    --carousel-opacity-0: 1;
+    --carousel-opacity-1: 0.6; /* Near Opacity */
+    --carousel-opacity-2: 0.4; /* Far Opacity */
+
+    /* controls */
+    --carousel-dot-wrapper-p: 8px;
+    --carousel-dot-size: 12px;
+    --carousel-dot-gap: 10px;
+    --carousel-dot: var(--secondary);
+    --carousel-dot-active: var(--accent);
+    --carousel-dot-active-scale: 1.2;
+    --carousel-arrow-size: 24px;
+    --carousel-hit: 40px;
+    --carousel-arrow: var(--secondary);
+    --carousel-arrow-hover: var(--accent);
+
+    /* motion */
+    --carousel-duration: 300ms;
+}
+
+/* Tablet Overrides */
+@media (min-width: 481px) and (max-width: 1024px) {
+    .carousel {
+        --carousel-card-w: 600px; /* Center Card Width */
+        --carousel-card-h: 300px; /* Center Card Height */
+        --carousel-radius: 30px; /* Corner Radius */
+
+        /* controls */
+        --carousel-dot-wrapper-p: 6px;
+        --carousel-dot-size: 10px;
+        --carousel-dot-gap: 8px;
+        --carousel-arrow-size: 20px;
+        --carousel-hit: 36px;
+    }
+}
+
+/* Mobile Overrides */
+@media (max-width: 480px) {
+    .carousel {
+        --carousel-card-w: 320px; /* Center Card Width */
+        --carousel-card-h: 180px; /* Center Card Height */
+        --carousel-radius: 20px; /* Corner Radius */
+
+        /* controls */
+        --carousel-dot-wrapper-p: 4px;
+        --carousel-dot-size: 8px;
+        --carousel-dot-gap: 6px;
+        --carousel-arrow-size: 16px;
+        --carousel-hit: 32px;
+    }
+}
+
+/* Reduced Motion Overrides */
+@media (prefers-reduced-motion: reduce) {
+    .carousel {
+        --carousel-duration: 0ms;
     }
 }
