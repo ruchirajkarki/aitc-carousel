@@ -17,6 +17,7 @@ export const CarouselControls = () => {
                     name="arrow"
                     className="size-(--carousel-arrow-size) opacity-70 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
                     style={{ transitionDuration: 'var(--carousel-duration)' }}
+                    aria-hidden="true"
                 />
             </button>
 
@@ -44,6 +45,7 @@ export const CarouselControls = () => {
                     name="arrow"
                     className="size-(--carousel-arrow-size) rotate-180 opacity-70 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
                     style={{ transitionDuration: 'var(--carousel-duration)' }}
+                    aria-hidden="true"
                 />
             </button>
         </div>
