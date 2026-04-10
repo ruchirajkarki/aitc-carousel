@@ -37,12 +37,6 @@ const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
     const { images, activeIndex, goToPreviousSlide, goToNextSlide, goToSlide } =
         useCarousel()
 
-    // auto switch slides every 5 seconds
-    useEffect(() => {
-        const interval = setInterval(goToNextSlide, 5000)
-        return () => clearInterval(interval)
-    }, [goToNextSlide])
-
     // Global Keyboard keys for Navigation, left and right
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {

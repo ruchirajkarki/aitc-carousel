@@ -1,0 +1,1 @@
+export const SLIDE_AUTO_ADVANCE_INTERVAL = 5000

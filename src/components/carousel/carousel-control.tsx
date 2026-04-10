@@ -3,8 +3,14 @@ import { Icon } from '../icon'
 import { useCarousel } from './carousel-provider'
 
 export const CarouselControls = () => {
-    const { goToNextSlide, goToPreviousSlide, goToSlide, images, activeImage } =
-        useCarousel()
+    const {
+        goToNextSlide,
+        goToPreviousSlide,
+        goToSlide,
+        images,
+        activeImage,
+        resetAutoAdvanceTimer
+    } = useCarousel()
     return (
         <div
             className="flex items-center justify-center gap-(--carousel-dot-gap)"
@@ -14,7 +20,10 @@ export const CarouselControls = () => {
                 type="button"
                 aria-label="Previous slide"
                 className="group grid size-(--carousel-hit) place-items-center rounded-full"
-                onClick={goToPreviousSlide}
+                onClick={() => {
+                    goToPreviousSlide()
+                    resetAutoAdvanceTimer()
+                }}
             >
                 <Icon
                     name="arrow"
@@ -37,7 +46,10 @@ export const CarouselControls = () => {
                         image.id === activeImage.id &&
                             'scale-(--carousel-dot-active-scale) opacity-100 bg-(--carousel-dot-active) motion-reduce:scale-100'
                     )}
-                    onClick={() => goToSlide(index)}
+                    onClick={() => {
+                        goToSlide(index)
+                        resetAutoAdvanceTimer()
+                    }}
                 />
             ))}
 
@@ -45,7 +57,10 @@ export const CarouselControls = () => {
                 type="button"
                 aria-label="Next slide"
                 className="group grid size-(--carousel-hit) place-items-center rounded-full"
-                onClick={goToNextSlide}
+                onClick={() => {
+                    goToNextSlide()
+                    resetAutoAdvanceTimer()
+                }}
             >
                 <Icon
                     name="arrow"
