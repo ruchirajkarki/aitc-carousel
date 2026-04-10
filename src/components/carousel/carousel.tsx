@@ -68,17 +68,17 @@ const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
 
         switch (distance) {
             case 0:
-                return cn(baseClasses, 'z-10 pointer-events-auto')
+                return cn(baseClasses, 'z-10 cursor-default')
             case 1:
-                return cn(baseClasses, 'z-9 pointer-events-auto')
+                return cn(baseClasses, 'z-9')
             case 2:
-                return cn(baseClasses, 'z-8 pointer-events-auto')
+                return cn(baseClasses, 'z-8')
             case -1:
-                return cn(baseClasses, 'z-9 pointer-events-auto')
+                return cn(baseClasses, 'z-9')
             case -2:
-                return cn(baseClasses, 'z-8 pointer-events-auto')
+                return cn(baseClasses, 'z-8')
             default:
-                return cn(baseClasses, 'z-0 pointer-events-none')
+                return cn(baseClasses, 'z-0')
         }
     }
 
