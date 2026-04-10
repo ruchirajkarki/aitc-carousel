@@ -6,7 +6,10 @@ export const CarouselControls = () => {
     const { goToNextSlide, goToPreviousSlide, goToSlide, images, activeImage } =
         useCarousel()
     return (
-        <div className="flex items-center justify-center gap-(--carousel-dot-gap)">
+        <div
+            className="flex items-center justify-center gap-(--carousel-dot-gap)"
+            style={{ padding: 'var(--carousel-dot-wrapper-p)' }}
+        >
             <button
                 type="button"
                 aria-label="Previous slide"
@@ -15,8 +18,11 @@ export const CarouselControls = () => {
             >
                 <Icon
                     name="arrow"
-                    className="size-(--carousel-arrow-size) opacity-70 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
-                    style={{ transitionDuration: 'var(--carousel-duration)' }}
+                    className="size-(--carousel-arrow-size) transition-colors duration-300 group-hover:text-(--carousel-arrow-hover) group-focus-visible:text-(--carousel-arrow-hover) motion-reduce:transition-none"
+                    style={{
+                        color: 'var(--carousel-arrow)',
+                        transitionDuration: 'var(--carousel-duration)'
+                    }}
                     aria-hidden="true"
                 />
             </button>
@@ -43,8 +49,11 @@ export const CarouselControls = () => {
             >
                 <Icon
                     name="arrow"
-                    className="size-(--carousel-arrow-size) rotate-180 opacity-70 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
-                    style={{ transitionDuration: 'var(--carousel-duration)' }}
+                    className="size-(--carousel-arrow-size) rotate-180 transition-colors duration-300 group-hover:text-(--carousel-arrow-hover) group-focus-visible:text-(--carousel-arrow-hover) motion-reduce:transition-none"
+                    style={{
+                        color: 'var(--carousel-arrow)',
+                        transitionDuration: 'var(--carousel-duration)'
+                    }}
                     aria-hidden="true"
                 />
             </button>
