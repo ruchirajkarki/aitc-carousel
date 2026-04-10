@@ -34,7 +34,7 @@ export const Carousel = ({ images, className, ...props }: CarouselProps) => {
 }
 
 const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
-    const { images, activeIndex, goToPreviousSlide, goToNextSlide } =
+    const { images, activeIndex, goToPreviousSlide, goToNextSlide, goToSlide } =
         useCarousel()
 
     // auto switch slides every 5 seconds
@@ -70,7 +70,7 @@ const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
     // classes for each slide based on distance from active slide, controlling z-index for layering and pointer events
     const getSlideClasses = (distance: number) => {
         const baseClasses =
-            'absolute inset-y-0 left-1/2 w-full transition-all duration-500 ease-out'
+            'absolute inset-y-0 left-1/2 w-full transition-all duration-500 ease-out cursor-pointer'
 
         switch (distance) {
             case 0:
@@ -160,6 +160,7 @@ const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
                         <div
                             key={image.id}
                             className={getSlideClasses(distance)}
+                            onClick={() => goToSlide(index)}
                             style={{
                                 transform: `${getSlideTransform(distance)} scale(${getSlideScale(distance)})`,
                                 opacity: getSlideOpacity(distance)
