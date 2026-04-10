@@ -3,10 +3,13 @@ import {
     createContext,
     useCallback,
     useContext,
+    useEffect,
     useMemo,
+    useRef,
     useState
 } from 'react'
 
+import { SLIDE_AUTO_ADVANCE_INTERVAL } from '@/lib/constants'
 import type { CarouselImage } from '../../types'
 
 type CarouselContextType = {
@@ -19,6 +22,7 @@ type CarouselContextType = {
     goToSlide: (index: number) => void
     getPrevImageByStep: (step: number) => CarouselImage
     getNextImageByStep: (step: number) => CarouselImage
+    resetAutoAdvanceTimer: () => void
 }
 
 export const CarouselContext = createContext<CarouselContextType | null>(null)
@@ -29,8 +33,21 @@ interface CarouselProps extends PropsWithChildren {
 
 export const CarouselProvider = ({ images, children }: CarouselProps) => {
     const [activeImageIndex, setActiveImageIndex] = useState(0)
+    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
     const total = images.length
+
+    const resetAutoAdvanceTimer = useCallback(() => {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current)
+        }
+        // Restart the interval after reset
+        intervalRef.current = setInterval(() => {
+            setActiveImageIndex((prevIndex) =>
+                prevIndex === total - 1 ? 0 : prevIndex + 1
+            )
+        }, SLIDE_AUTO_ADVANCE_INTERVAL)
+    }, [total])
 
     // we use useCallback to memoize the functions so that they don't change on every render,
     // which can help prevent unnecessary re renders of child components that consume the context
@@ -38,13 +55,15 @@ export const CarouselProvider = ({ images, children }: CarouselProps) => {
         setActiveImageIndex((prevIndex) => {
             return prevIndex === 0 ? total - 1 : prevIndex - 1
         })
-    }, [total])
+        resetAutoAdvanceTimer()
+    }, [total, resetAutoAdvanceTimer])
 
     const goToNextSlide = useCallback(() => {
         setActiveImageIndex((prevIndex) => {
             return prevIndex === total - 1 ? 0 : prevIndex + 1
         })
-    }, [total])
+        resetAutoAdvanceTimer()
+    }, [total, resetAutoAdvanceTimer])
 
     const goToSlide = useCallback(
         (index: number) => {
@@ -52,33 +71,44 @@ export const CarouselProvider = ({ images, children }: CarouselProps) => {
                 // if the index is out of bounds we will wrap around
                 const finalIndex = ((index % total) + total) % total // this ensures that the index wraps around correctly for both positive and negative values
                 setActiveImageIndex(finalIndex)
-                return
+            } else {
+                setActiveImageIndex(index)
             }
-            setActiveImageIndex(index)
+            resetAutoAdvanceTimer()
         },
-        [total]
+        [total, resetAutoAdvanceTimer]
     )
+
+    // auto switch slides every 5 seconds
+    useEffect(() => {
+        intervalRef.current = setInterval(() => {
+            setActiveImageIndex((prevIndex) =>
+                prevIndex === total - 1 ? 0 : prevIndex + 1
+            )
+        }, SLIDE_AUTO_ADVANCE_INTERVAL)
+        return () => {
+            if (intervalRef.current) clearInterval(intervalRef.current)
+        }
+    }, [total])
 
     const getPrevImageByStep = useCallback(
         (step: number) => {
-            const prevIndex = activeImageIndex - step
-            let finalIndex = prevIndex
+            let prevIndex = activeImageIndex - step
             if (prevIndex < 0 || prevIndex >= total) {
-                finalIndex = ((prevIndex % total) + total) % total // this ensures that the index wraps around correctly for both positive and negative values
+                prevIndex = ((prevIndex % total) + total) % total // this ensures that the index wraps around correctly for both positive and negative values
             }
-            return images[finalIndex]
+            return images[prevIndex]
         },
         [activeImageIndex, images, total]
     )
 
     const getNextImageByStep = useCallback(
         (step: number) => {
-            const nextIndex = activeImageIndex + step
-            let finalIndex = nextIndex
+            let nextIndex = activeImageIndex + step
             if (nextIndex < 0 || nextIndex >= total) {
-                finalIndex = ((nextIndex % total) + total) % total // this ensures that the index wraps around correctly for both positive and negative values
+                nextIndex = ((nextIndex % total) + total) % total // this ensures that the index wraps around correctly for both positive and negative values
             }
-            return images[finalIndex]
+            return images[nextIndex]
         },
         [activeImageIndex, images, total]
     )
@@ -95,9 +125,17 @@ export const CarouselProvider = ({ images, children }: CarouselProps) => {
             goToNextSlide,
             goToSlide,
             getPrevImageByStep,
-            getNextImageByStep
+            getNextImageByStep,
+            resetAutoAdvanceTimer
         }),
-        [activeImageIndex, goToNextSlide, goToPreviousSlide, images, total]
+        [
+            activeImageIndex,
+            goToNextSlide,
+            goToPreviousSlide,
+            images,
+            total,
+            resetAutoAdvanceTimer
+        ]
     )
 
     return (
