@@ -38,13 +38,13 @@ export const CarouselProvider = ({ images, children }: CarouselProps) => {
         setActiveImageIndex((prevIndex) => {
             return prevIndex === 0 ? total - 1 : prevIndex - 1
         })
-    }, [total, activeImageIndex])
+    }, [total])
 
     const goToNextSlide = useCallback(() => {
         setActiveImageIndex((prevIndex) => {
             return prevIndex === total - 1 ? 0 : prevIndex + 1
         })
-    }, [total, activeImageIndex])
+    }, [total])
 
     const goToSlide = useCallback(
         (index: number) => {
