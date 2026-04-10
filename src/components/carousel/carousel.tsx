@@ -18,7 +18,11 @@ export const Carousel = ({ images, className, ...props }: CarouselProps) => {
 }
 
 const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
-    const { activeImage } = useCarousel()
+    const { activeImage, getPrevImageByStep, getNextImageByStep } =
+        useCarousel()
+
+    const prevImage = getPrevImageByStep(1)
+    const nextImage = getNextImageByStep(1)
 
     return (
         <div
@@ -33,14 +37,22 @@ const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
                     borderRadius: 'var(--carousel-radius)'
                 }}
             >
-                {activeImage && (
-                    <img
-                        src={activeImage.url}
-                        alt={activeImage.alt ?? 'Carousel image'}
-                        className="h-full w-full object-cover"
-                        draggable={false}
-                    />
-                )}
+                <img
+                    src={prevImage.url}
+                    alt={prevImage.alt ?? 'Previous image'}
+                    className="object-cover"
+                />
+                <img
+                    src={activeImage.url}
+                    alt={activeImage.alt ?? 'Carousel image'}
+                    className="h-full w-full object-cover"
+                    draggable={false}
+                />
+                <img
+                    src={nextImage.url}
+                    alt={nextImage.alt ?? 'Next image'}
+                    className="object-cover"
+                />
             </div>
             <CarouselControls />
         </div>

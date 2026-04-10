@@ -15,6 +15,8 @@ type CarouselContextType = {
     goToNextSlide: () => void
     total: number
     activeIndex: number
+    getPrevImageByStep: (step: number) => CarouselImage
+    getNextImageByStep: (step: number) => CarouselImage
 }
 
 export const CarouselContext = createContext<CarouselContextType | null>(null)
@@ -42,6 +44,30 @@ export const CarouselProvider = ({ images, children }: CarouselProps) => {
         })
     }, [total, activeImageIndex])
 
+    const getPrevImageByStep = useCallback(
+        (step: number) => {
+            const prevIndex = activeImageIndex - step
+            let finalIndex = prevIndex
+            if (prevIndex < 0 || prevIndex >= total) {
+                finalIndex = ((prevIndex % total) + total) % total // this ensures that the index wraps around correctly for both positive and negative values
+            }
+            return images[finalIndex]
+        },
+        [activeImageIndex, images, total]
+    )
+
+    const getNextImageByStep = useCallback(
+        (step: number) => {
+            const nextIndex = activeImageIndex + step
+            let finalIndex = nextIndex
+            if (nextIndex < 0 || nextIndex >= total) {
+                finalIndex = ((nextIndex % total) + total) % total // this ensures that the index wraps around correctly for both positive and negative values
+            }
+            return images[finalIndex]
+        },
+        [activeImageIndex, images, total]
+    )
+
     // we use useMemo to memoize the value object so that it only changes when one of its dependencies changes,
     // which can help prevent unnecessary re renders of child components that consume the context
     const value = useMemo(
@@ -50,7 +76,9 @@ export const CarouselProvider = ({ images, children }: CarouselProps) => {
             goToPreviousSlide,
             goToNextSlide,
             total,
-            activeIndex: activeImageIndex
+            activeIndex: activeImageIndex,
+            getPrevImageByStep,
+            getNextImageByStep
         }),
         [activeImageIndex, goToNextSlide, goToPreviousSlide, images, total]
     )
