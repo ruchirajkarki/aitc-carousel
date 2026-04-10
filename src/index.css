@@ -50,11 +50,16 @@ button {
 
     /* visual states */
     --carousel-scale-0: 1;
-    --carousel-scale-1: 0.9; /* Near Scale */
-    --carousel-scale-2: 0.8; /* Far Scale */
+    --carousel-scale-1: 0.8; /* Near Scale */
+    --carousel-scale-2: 0.6; /* Far Scale */
+    --carousel-scale-hidden: 0.75;
     --carousel-opacity-0: 1;
-    --carousel-opacity-1: 0.6; /* Near Opacity */
-    --carousel-opacity-2: 0.4; /* Far Opacity */
+    --carousel-opacity-1: 1; /* Near Opacity */
+    --carousel-opacity-2: 0.5; /* Far Opacity */
+    --carousel-opacity-hidden: 0;
+    --carousel-offset-1: 25%; /* Near Position Offset */
+    --carousel-offset-2: 45%; /* Far Position Offset */
+    --carousel-hidden-offset: 80%; /* Hidden Position Offset */
 
     /* controls */
     --carousel-dot-wrapper-p: 8px;
