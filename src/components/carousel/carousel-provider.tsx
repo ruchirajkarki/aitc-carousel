@@ -11,10 +11,12 @@ import type { CarouselImage } from '../../types'
 
 type CarouselContextType = {
     activeImage: CarouselImage
-    goToPreviousSlide: () => void
-    goToNextSlide: () => void
+    images: CarouselImage[]
     total: number
     activeIndex: number
+    goToPreviousSlide: () => void
+    goToNextSlide: () => void
+    goToSlide: (index: number) => void
     getPrevImageByStep: (step: number) => CarouselImage
     getNextImageByStep: (step: number) => CarouselImage
 }
@@ -43,6 +45,19 @@ export const CarouselProvider = ({ images, children }: CarouselProps) => {
             return prevIndex === total - 1 ? 0 : prevIndex + 1
         })
     }, [total, activeImageIndex])
+
+    const goToSlide = useCallback(
+        (index: number) => {
+            if (index < 0 || index >= total) {
+                // if the index is out of bounds we will wrap around
+                const finalIndex = ((index % total) + total) % total // this ensures that the index wraps around correctly for both positive and negative values
+                setActiveImageIndex(finalIndex)
+                return
+            }
+            setActiveImageIndex(index)
+        },
+        [total]
+    )
 
     const getPrevImageByStep = useCallback(
         (step: number) => {
@@ -73,10 +88,12 @@ export const CarouselProvider = ({ images, children }: CarouselProps) => {
     const value = useMemo(
         () => ({
             activeImage: images[activeImageIndex],
-            goToPreviousSlide,
-            goToNextSlide,
+            images,
             total,
             activeIndex: activeImageIndex,
+            goToPreviousSlide,
+            goToNextSlide,
+            goToSlide,
             getPrevImageByStep,
             getNextImageByStep
         }),

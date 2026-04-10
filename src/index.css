@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+button {
+    cursor: pointer;
+}
+
 :root {
     /* Below are modified to reflect figma design at:  */
     /* https://www.figma.com/design/cRU4R1JpyFW29kClgedf78/Carousel--Community-?node-id=3-99&p=f&t=IUmDpNMT7q3nJ2me-0 */
@@ -58,6 +62,7 @@
     --carousel-dot-gap: 10px;
     --carousel-dot: var(--secondary);
     --carousel-dot-active: var(--accent);
+    --carousel-dot-active-scale: 1.2;
     --carousel-arrow-size: 24px;
     --carousel-hit: 40px;
     --carousel-arrow: var(--secondary);

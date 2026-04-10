@@ -26,11 +26,11 @@ const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
 
     return (
         <div
-            className={cn('carousel mx-auto w-fit space-y-4', className)}
+            className={cn('carousel mx-auto relative space-y-4', className)}
             {...props}
         >
             <div
-                className="overflow-hidden"
+                className="flex size-full "
                 style={{
                     width: 'var(--carousel-card-w)',
                     height: 'var(--carousel-card-h)',
@@ -38,9 +38,16 @@ const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
                 }}
             >
                 <img
+                    src={getPrevImageByStep(2).url}
+                    alt={getPrevImageByStep(2).alt ?? 'Previous image'}
+                    className="object-cover"
+                    draggable={false}
+                />
+                <img
                     src={prevImage.url}
                     alt={prevImage.alt ?? 'Previous image'}
                     className="object-cover"
+                    draggable={false}
                 />
                 <img
                     src={activeImage.url}
@@ -52,6 +59,13 @@ const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
                     src={nextImage.url}
                     alt={nextImage.alt ?? 'Next image'}
                     className="object-cover"
+                    draggable={false}
+                />
+                <img
+                    src={getNextImageByStep(2).url}
+                    alt={getNextImageByStep(2).alt ?? 'Next image'}
+                    className="object-cover"
+                    draggable={false}
                 />
             </div>
             <CarouselControls />
