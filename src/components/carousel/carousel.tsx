@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react'
+import { useEffect } from 'react'
 
 import { cn } from '../../lib/utils'
 import type { CarouselImage } from '../../types'
@@ -18,8 +19,30 @@ export const Carousel = ({ images, className, ...props }: CarouselProps) => {
 }
 
 const CarouselContent = ({ className, ...props }: ComponentProps<'div'>) => {
-    const { activeImage, getPrevImageByStep, getNextImageByStep } =
-        useCarousel()
+    const {
+        activeImage,
+        getPrevImageByStep,
+        getNextImageByStep,
+        goToPreviousSlide,
+        goToNextSlide
+    } = useCarousel()
+
+    // we add keyboard navigation for the carousel,
+    // which allowing users to navigate through the slides
+    // using the left and right arrow keys. We also ensure that the
+    // event listener is properly cleaned up when the component unmounts to prevent memory leaks.
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'ArrowLeft') goToPreviousSlide()
+            if (event.key === 'ArrowRight') goToNextSlide()
+        }
+
+        globalThis.addEventListener('keydown', handleKeyDown)
+
+        return () => {
+            globalThis.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [goToNextSlide, goToPreviousSlide])
 
     const prevImage = getPrevImageByStep(1)
     const nextImage = getNextImageByStep(1)
